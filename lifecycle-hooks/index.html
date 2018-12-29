@@ -1,0 +1,47 @@
+<body onLoad="Init()">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <div id="app">
+    <h1>Life cycle</h1>
+
+    <li v-for="element in entries">
+      {{ element }}
+    </li>
+
+    {{ a }}
+
+    <button v-on:click="a = Date().toString()">Change it</button>
+  </div>
+  <script>
+    var Init = function() {
+      new Vue({
+	el: '#app',
+	data: {
+	  a: undefined,
+	  foo: 'okay',
+	  cycle: {},
+	},
+	computed: {
+	  entries: function() {
+	    return Object.keys(this.cycle);
+	  }
+	},
+	created: function () {
+	  this.cycle.created = Date()
+	  console.log('created %s', this.cycle.created.toString())
+	},
+	mounted: function () {
+	  this.cycle.mounted = Date()
+	  console.log('mounted=%s', this.cycle.mounted.toString())
+	},
+	updated: function () {
+	  this.cycle.updated = Date();
+	  console.log('updated=%s', this.cycle.updated.toString())
+	},
+	destroyed: function () {
+	  this.cycle.destroyed = Date()
+	  console.log('destroyed=%s', this.cycle.destroyed.toString())
+	}
+      })
+    };
+  </script>
+</body>
